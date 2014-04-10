@@ -7,11 +7,51 @@
 //
 
 #import "AppDelegate.h"
+#import "LeftSideViewController.h"
+#import "RightSideViewController.h"
+#import "CenterViewController.h"
+#import <MMDrawerController.h>
+#import "MMExampleDrawerVisualStateManager.h"
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    LeftSideViewController * leftCtrl = [[LeftSideViewController alloc]initWithNibName:@"LeftSideViewController" bundle:Nil];
+    
+    RightSideViewController * rightCtrl = [[RightSideViewController alloc]initWithNibName:@"RightSideViewController" bundle:nil];
+    
+    CenterViewController * centerCtrl = [[CenterViewController alloc]initWithNibName:@"CenterViewController" bundle:nil];
+    
+    UINavigationController * navgationCtrl =[[UINavigationController alloc]initWithRootViewController:centerCtrl];
+    
+    MMDrawerController * mmdController = [[MMDrawerController alloc]initWithCenterViewController:navgationCtrl leftDrawerViewController:leftCtrl rightDrawerViewController:rightCtrl];
+    
+   //设置右边ViewController的显示大小
+    [mmdController setMaximumRightDrawerWidth:280.0];
+    [mmdController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [mmdController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    
+    [mmdController
+     setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+         
+         MMDrawerControllerDrawerVisualStateBlock block;
+         block = [[MMExampleDrawerVisualStateManager sharedManager]
+                  drawerVisualStateBlockForDrawerSide:drawerSide];
+         if(block){
+             block(drawerController, drawerSide, percentVisible);
+         }
+     }];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:mmdController];
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+
+    
     // Override point for customization after application launch.
     return YES;
 }

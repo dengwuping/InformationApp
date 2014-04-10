@@ -1,6 +1,5 @@
 platform :ios,'7.0'
 pod "AFNetworking",'~>2.1'
 pod "MMDrawerController",'~>0.5.3'
-pod "JSONKit"
 pod "Reachability"
 pod "MBProgressHUD"
