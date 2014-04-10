@@ -21,13 +21,17 @@
     
     LeftSideViewController * leftCtrl = [[LeftSideViewController alloc]initWithNibName:@"LeftSideViewController" bundle:Nil];
     
+    UINavigationController * leftNavCtrl = [[UINavigationController alloc]initWithRootViewController:leftCtrl];
+    
     RightSideViewController * rightCtrl = [[RightSideViewController alloc]initWithNibName:@"RightSideViewController" bundle:nil];
+    
+    UINavigationController * rightNavCtrl = [[UINavigationController alloc]initWithRootViewController:rightCtrl];
     
     CenterViewController * centerCtrl = [[CenterViewController alloc]initWithNibName:@"CenterViewController" bundle:nil];
     
     UINavigationController * navgationCtrl =[[UINavigationController alloc]initWithRootViewController:centerCtrl];
     
-    MMDrawerController * mmdController = [[MMDrawerController alloc]initWithCenterViewController:navgationCtrl leftDrawerViewController:leftCtrl rightDrawerViewController:rightCtrl];
+    MMDrawerController * mmdController = [[MMDrawerController alloc]initWithCenterViewController:navgationCtrl leftDrawerViewController:leftNavCtrl rightDrawerViewController:rightNavCtrl];
     
    //设置右边ViewController的显示大小
     [mmdController setMaximumRightDrawerWidth:280.0];
